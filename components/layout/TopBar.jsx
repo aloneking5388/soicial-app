@@ -1,13 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Add, Logout, Person, Search } from "@mui/icons-material";
+import { Add, Logout, Search } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
 import { SignOutButton, SignedIn, UserButton, useUser } from "@clerk/nextjs";
-import Link from "next/link";
-import Image from "next/image";
-import { dark } from "@clerk/themes";
 import Loader from "@components/Loader";
+import { dark } from "@clerk/themes";
 
 const TopBar = () => {
   const { user, isLoaded } = useUser();
@@ -57,12 +55,18 @@ const TopBar = () => {
         <Add /> <p>Create A Post</p>
       </button>
 
-      <div className="flex gap-4 md:hidden">
-        <Link href={`/profile/${userData?._id}/posts`}>
-          <Person sx={{ fontSize: "35px", color: "white" }} />
-        </Link>
-
-        <UserButton appearance={{ baseTheme: dark }} afterSignOutUrl="/sign-in" />
+      <div className="flex gap-3">
+      <SignedIn>
+          <SignOutButton>
+            <div className="flex cursor-pointer items-center md:hidden">
+              <Logout sx={{ color: "white", fontSize: "32px"}}/>
+            </div>
+          </SignOutButton>
+        </SignedIn>
+        <div className="md:hidden">
+          <UserButton appearance={{ baseTheme: dark }} afterSignOutUrl="/sign-in"/>
+        </div>
+        
       </div>
     </div>
   );
