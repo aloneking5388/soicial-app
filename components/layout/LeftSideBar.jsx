@@ -1,12 +1,13 @@
 "use client";
 
-import { UserButton, useUser } from "@clerk/nextjs";
+import { SignOutButton, SignedIn, UserButton, useUser } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 import Image from "next/image";
 import Link from "next/link";
 import Menu from "./Menu";
 import { useEffect, useState } from "react";
 import Loader from "@components/Loader";
+import { Logout } from "@mui/icons-material";
 
 const LeftSideBar = () => {
   const { user, isLoaded } = useUser();
@@ -65,7 +66,7 @@ const LeftSideBar = () => {
             <p className="text-tiny-medium">Following</p>
           </div>
         </div>
-      </div>
+      
 
       <hr />
 
@@ -73,9 +74,18 @@ const LeftSideBar = () => {
 
       <hr />
 
-      <div className="flex gap-4 items-center">
-        <UserButton appearance={{ baseTheme: dark }} afterSignOutUrl="/sign-in"/>
-        <p className="text-light-1 text-body-bold">Manage Account</p>
+        <div className="flex gap-4 items-center">
+          <UserButton appearance={{ baseTheme: dark }} afterSignOutUrl="/sign-in"/>
+          <p className="text-light-1 text-body-bold">Manage Account</p>
+        </div>
+        <SignedIn>
+          <SignOutButton>
+            <div className="flex cursor-pointer gap-4 items-center">
+              <Logout sx={{ color: "white", fontSize: "32px"}}/>
+              <p className="text-body-bold text-light-1">Log Out</p>
+            </div>
+          </SignOutButton>
+        </SignedIn>
       </div>
     </div>
   );
